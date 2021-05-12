@@ -231,16 +231,20 @@ public class InstaGui extends JFrame {					// main class InstaGui.
 			    post_count = Integer.parseInt(posts);
 			    
 			    if (!(is_private.equals("true"))) {																// if the account is public start displaying the posts in 3rd UI.
-				    String query= doc.select("script[src*=/static/bundles/es6/Consumer.js]").get(0).attr("src");
+			    	
+				    String query= doc.select("script[src*=/static/bundles/es6/ConsumerLibCommons.js]").get(0).attr("src");
 				    System.out.println("https://www.instagram.com"+query);
+				    
+				  
 				    String key = new Scanner(new URL("https://www.instagram.com"+query).openStream(), "UTF-8").useDelimiter("\\A").next();
-				    query_id = key.substring(key.indexOf("||void 0===l?void 0:l.pagination},queryId:\"")+43, key.indexOf("\",queryParams:t=>({id:t})", key.indexOf("||void 0===l?void 0:l.pagination},queryId:\"")+42)); 
+				    query_id = key.substring(key.indexOf("pagination},queryId:\"")+21, key.indexOf("\",queryParams:t=>({id:t})", key.indexOf("||void 0===l?void 0:l.pagination},queryId:\"")+42)); 
 //				    query_id = "72fb0a35705033d45d39ffe3d231520a";												// scraping query id to request the next 12 posts.
 				    id = edges.getString("id");											// as instagram allows only 12 posts to be parsed in one request
 																						// we need to request next 12 posts if its available.
 				    System.out.println(query_id);
-				    																	
-				    
+				    							
+
+				    System.out.println(key);
 				    
 				    posts_array = new String[post_count];								// creating posts array to hold all the post urls.
 				    
